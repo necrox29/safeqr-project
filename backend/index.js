@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors'; // <--- 1. IMPORTAMOS CORS AQUÍ
 import scanRoutes from './src/routes/scanRoutes.js';
 
 const app = express();
@@ -11,6 +12,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((error) => console.error('❌ Error al conectar a la BD:', error));
 
 app.use(express.json());
+app.use(cors()); // <--- 2. LE DECIMOS A EXPRESS QUE USE CORS AQUÍ
+
 app.use('/api', scanRoutes);
 
 app.listen(port, () => {
